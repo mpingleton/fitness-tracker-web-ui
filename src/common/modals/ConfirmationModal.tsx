@@ -35,8 +35,9 @@ function ConfirmationModal(props: { title: string, message: string, isOpen: bool
                     padding: 2
                 }}
             >
-                <Stack direction="column" spacing={2} padding={1}>
+                <Stack direction="column" spacing={1} padding={1}>
                     <Typography variant="h6">{props.title}</Typography>
+                    <Divider />
                     <Typography textAlign="center">{props.message}</Typography>
                     {isPendingSubmit === true ? loadingBar : buttonBar}
                 </Stack>
