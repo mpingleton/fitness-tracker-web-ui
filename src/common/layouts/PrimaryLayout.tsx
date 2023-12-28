@@ -9,7 +9,7 @@ import {
     Button
 } from "@mui/material"
 
-function PrimaryLayout(props: { title: string, content: any }) {
+function PrimaryLayout(props: { title: string, content: any, modals?: any }) {
     const navigate = useNavigate()
     document.title = "Fitness Tracker - " + props.title
 
@@ -102,6 +102,7 @@ function PrimaryLayout(props: { title: string, content: any }) {
                 height: "100vh",
             }}
         >
+            {props.modals}
             {MainAppBar}
             <Box
                 sx={{
