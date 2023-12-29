@@ -1,48 +1,68 @@
-import React, { useState } from "react"
-import { Button } from "@mui/material"
+import { useState } from "react"
+import { Typography } from "@mui/material"
+import dayjs from "dayjs"
 
 import PrimaryLayout from "../../../common/layouts/PrimaryLayout"
-import ConfirmationModal from "../../../common/modals/ConfirmationModal"
 import InputModal from "../../../common/modals/InputModal"
-import IntakeForm from "../forms/IntakeForm"
+import IntakeLayout from "../layouts/IntakeLayout"
+import NewIntakeForm from "../forms/NewIntakeForm"
+
+import getMyIntakes from "../../../data/intake/getMyIntakes"
+import putIntake from "../../../data/intake/putIntake"
 
 function Intake() {
 
-    const [isIntakeFormOpen, setIntakeFormOpen] = useState<boolean>(false)
-    const [isConfirmModalOpen, setConfirmModalOpen] = useState<boolean>(false)
+    const [isNewIntakeModalOpen, setNewIntakeModalOpen] = useState<boolean>(false)
+
+    const [intakeList, setIntakeList] = useState<any>(undefined)
+    const [selectedIntakeId, setSelectedIntakeId] = useState<any>(undefined);
+    const [selectedIntakeObject, setSelectedIntakeObject] = useState<any>(undefined);
+
+    if (intakeList === undefined) {
+        setIntakeList(null)
+        getMyIntakes()
+            .then((result) => setIntakeList(result))
+            .catch((err) => console.log(err))
+    }
+
+    function content() {
+        if (intakeList === undefined || intakeList === null) {
+            return (<Typography>Loading data...</Typography>)
+        } else {
+            return (
+                <IntakeLayout 
+                    intakeList={intakeList}
+                    onClickNewIntake={() => setNewIntakeModalOpen(true)}
+                />
+            )
+        }
+    }
+
+    function handleSubmitIntake(subject: string, numberServings: number, calories: number, carbohydrates: number, protein: number, fat: number) {
+        putIntake(dayjs().format(), subject, numberServings, calories, carbohydrates, protein, fat)
+            .then(() => getMyIntakes())
+            .then((result) => {
+                setIntakeList(result)
+                setNewIntakeModalOpen(false)
+            })
+            .catch((err) => console.log(err))
+    }
 
     return (
         <PrimaryLayout
             title="Nutritional Intake"
-            content={<Button onClick={() => setIntakeFormOpen(true)}>Show form</Button>}
+            content={content()}
             modals={[
                 (<InputModal
-                    title="Test"
+                    title="New Intake"
+                    isOpen={isNewIntakeModalOpen}
+                    onClose={() => setNewIntakeModalOpen(false)}
                     inputForm={
-                        <IntakeForm
-                            initInfo={{
-                                inputTitle: "",
-                                inputContent: ""
-                            }}
-                            onSubmit={(d: object) => {
-                                alert(JSON.stringify(d))
-                                setIntakeFormOpen(false)
-                                setConfirmModalOpen(true)
-                            }}
-                            onCancel={() => setIntakeFormOpen(false)}
+                        <NewIntakeForm
+                            onSubmit={handleSubmitIntake}
+                            onCancel={() => setNewIntakeModalOpen(false)}
                         />
                     }
-                    isOpen={isIntakeFormOpen}
-                    onClose={() => setIntakeFormOpen(false)}
-                />),
-                (<ConfirmationModal
-                    title="Confirmation"
-                    message="Are you sure you want to confirm this message?"
-                    isOpen={isConfirmModalOpen}
-                    onCancel={() => setConfirmModalOpen(false)}
-                    onConfirm={() => {
-                        setConfirmModalOpen(false)
-                    }}
                 />)
             ]}
         />

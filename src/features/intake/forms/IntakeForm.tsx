@@ -43,7 +43,7 @@ function IntakeForm(props: { initInfo?: { inputTitle: string, inputContent: stri
             />
             <TextField
                 type="text"
-                variant="outlined"
+                variant="standard"
                 label="Content"
                 error={inputContent.length > 0 && isContentValid.error !== undefined}
                 disabled={false}
