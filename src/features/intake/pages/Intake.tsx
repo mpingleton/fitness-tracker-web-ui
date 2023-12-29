@@ -15,8 +15,6 @@ function Intake() {
     const [isNewIntakeModalOpen, setNewIntakeModalOpen] = useState<boolean>(false)
 
     const [intakeList, setIntakeList] = useState<any>(undefined)
-    const [selectedIntakeId, setSelectedIntakeId] = useState<any>(undefined);
-    const [selectedIntakeObject, setSelectedIntakeObject] = useState<any>(undefined);
 
     if (intakeList === undefined) {
         setIntakeList(null)
