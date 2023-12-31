@@ -6,7 +6,7 @@ function StrengthTrainingDataPanel(props: { strengthTrainingList: Array<object>,
     const columns = [
         { field: "timestampBegin", headerName: "Time Began", width: 180 },
         { field: "name", headerName: "Name", width: 400 },
-        { field: "weight", headerName: "Weight", width: 150 },
+        { field: "weight", headerName: "Weight (lbs)", width: 150 },
         { field: "totalSets", headerName: "Total Sets", width: 150 },
         { field: "repsPerSet", headerName: "Reps per Set", width: 150 },
     ]

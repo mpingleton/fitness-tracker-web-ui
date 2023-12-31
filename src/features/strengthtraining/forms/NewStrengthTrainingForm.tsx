@@ -56,7 +56,7 @@ function NewStrengthTrainingForm(props: { initInfo?: { name: string, totalSets: 
                     fullWidth
                     type="number"
                     variant="standard"
-                    label="Weight"
+                    label="Weight (lbs)"
                     error={isWeightValid.error !== undefined}
                     disabled={isPendingSubmit}
                     value={inputWeight}

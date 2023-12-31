@@ -66,7 +66,7 @@ function NewCardioForm(props: { initInfo?: { name: string, duration: number, dis
                     fullWidth
                     type="number"
                     variant="standard"
-                    label="Distance"
+                    label="Distance (mi)"
                     error={isDistanceValid.error !== undefined}
                     disabled={isPendingSubmit}
                     value={inputDistance}

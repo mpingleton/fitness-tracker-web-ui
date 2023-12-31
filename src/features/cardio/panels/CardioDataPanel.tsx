@@ -7,7 +7,7 @@ function CardioDataPanel(props: { cardioList: Array<object>, sx?: object }) {
         { field: "timestampBegin", headerName: "Time Began", width: 180 },
         { field: "name", headerName: "Name", width: 400 },
         { field: "duration", headerName: "Duration", width: 150 },
-        { field: "distance", headerName: "Distance", width: 150 },
+        { field: "distance", headerName: "Distance (mi)", width: 150 },
         { field: "caloriesBurned", headerName: "Calories Burned", width: 150 }
     ]
 
